@@ -3,12 +3,12 @@ import json
 import os
 from c4d import gui
 
-
 def attr_return(lamp, attr):
     return eval('lamp[attr]')
 
 
 class Exporter:
+
 
     def __init__(self):
         self.path = None
@@ -25,6 +25,7 @@ class Exporter:
                            'c4d.REDSHIFT_LIGHT_AFFECTS_SPECULAR',
                            'c4d.ID_BASELIST_NAME',
                            ]
+
 
     def attr_maker(self):
         """
@@ -43,6 +44,7 @@ class Exporter:
             filename, ext = os.path.splitext(docname)
         return attr_list
 
+
     def write_files(self):
         """
         write out json and fbx file to chosen path
@@ -54,11 +56,13 @@ class Exporter:
         file = open('{}.json'.format(path), 'w')
         file.write(dump)
         file.close()
-        export = c4d.documents.SaveDocument(doc, path, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, 1026370)
+        fbxpath = (os.path.dirname(path)+ '\scene')
+        export = c4d.documents.SaveDocument(doc, fbxpath, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, 1026370)
         if export:
             gui.MessageDialog("Selected Lights have been exported")
         else:
             gui.MessageDialog("Could not export file to location")
+
 
 
 instance = Exporter()
