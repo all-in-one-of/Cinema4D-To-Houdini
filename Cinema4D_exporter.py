@@ -1,8 +1,7 @@
 import c4d
 import json
-from c4d import Vector
 import os
-import pprint
+from c4d import gui
 
 
 def attr_return(lamp, attr):
@@ -55,10 +54,14 @@ class Exporter:
         file = open('{}.json'.format(path), 'w')
         file.write(dump)
         file.close()
-        c4d.documents.SaveDocument(doc, path, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, 1026370)
+        export = c4d.documents.SaveDocument(doc, path, c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST, 1026370)
+        if export:
+            gui.MessageDialog("Selected Lights have been exported")
+        else:
+            gui.MessageDialog("Could not export file to location")
 
 
 instance = Exporter()
 
 if __name__ == '__main__':
-    pprint.pprint(instance.write_files())
+    instance.write_files()
