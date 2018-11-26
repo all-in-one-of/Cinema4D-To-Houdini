@@ -52,7 +52,6 @@ def translate_light():
     globalnull = sceneroot.createNode('null', 'size_locator')
     globalnull.setParms({'scale': 0.01})
     for lamp in lampattr:
-        print(lamp)
         name = lamp.get('c4d.ID_BASELIST_NAME')
         light, sceneroot = create_light(name)
         # Connect lights to Null objects

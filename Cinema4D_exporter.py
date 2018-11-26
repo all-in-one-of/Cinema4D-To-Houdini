@@ -39,6 +39,7 @@ class Exporter:
             dic['scale'] = scale
             vec = lamp[c4d.REDSHIFT_LIGHT_PHYSICAL_COLOR]
             color = (vec[0], vec[1], vec[2])
+            # TODO: FIX NAME UNICODE TRANSFORM
             dic['color'] = color
             docname = doc.GetDocumentName()
             filename, ext = os.path.splitext(docname)
