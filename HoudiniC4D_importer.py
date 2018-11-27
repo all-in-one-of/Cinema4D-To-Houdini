@@ -52,10 +52,15 @@ def translate_light():
     globalnull = sceneroot.createNode('null', 'size_locator')
     globalnull.setParms({'scale': 0.01})
     for lamp in lampattr:
-        name = lamp.get('c4d.ID_BASELIST_NAME')
-        light, sceneroot = create_light(name)
+        name = str(lamp.get('c4d.ID_BASELIST_NAME'))
+        name = name.replace(' ', '_').replace('.', '_')
+        light, sceneroot = create_light(str(name))
+        print(light)
+        print(type(light))
+        print(name)
         # Connect lights to Null objects
         null = hou.node('/obj/scene_fbx/{}/'.format(name))
+        print(name)
         light.setInput(0, null, 0)
         # connect null's to global null for size
         null.setInput(0, globalnull, 0)
@@ -64,9 +69,11 @@ def translate_light():
         z = lamp.get('c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_SIZEZ')
         scale = (x, y, z)
         color = lamp.get('color')
-        #for scale in scales:
-        light.setParms({'areasize1': (scale[0]*2)/100, 'areasize2': (scale[1]*2)/100, 'areasize3': (scale[2]*2)/100})
-        #for color in colors:
+        if lamp.get('c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_GEOMETRY') == 2:
+            light.setParms({'areasize1': ((scale[0])/100)/2, 'areasize2': ((scale[1])/100)/2, 'areasize3': ((scale[2])/100)/2})
+        else:
+            light.setParms(
+                {'areasize1': (scale[0]) / 100, 'areasize2': (scale[1]) / 100, 'areasize3': (scale[2]) / 100})
         light.setParms({'light_colorr': color[0], 'light_colorg': color[1], 'light_colorb': color[2]})
         set_attributes(light, lamp)
     sceneroot.layoutChildren()
@@ -96,4 +103,5 @@ def set_attributes(light, lamp):
 translate_light()
 # Display creation message
 hou.ui.displayMessage('Lights have been generated!')
+
 

@@ -16,6 +16,7 @@ class Exporter:
         self.attributes = ['c4d.REDSHIFT_LIGHT_PHYSICAL_INTENSITY',
                            'c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_SIZEX',
                            'c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_SIZEY',
+                           'c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_SIZEZ',
                            'c4d.REDSHIFT_LIGHT_PHYSICAL_EXPOSURE',
                            'c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_VISIBLE_IN_RENDER',
                            'c4d.REDSHIFT_LIGHT_PHYSICAL_AREA_BIDIRECTIONAL',
@@ -39,9 +40,9 @@ class Exporter:
             dic['scale'] = scale
             vec = lamp[c4d.REDSHIFT_LIGHT_PHYSICAL_COLOR]
             color = (vec[0], vec[1], vec[2])
-            # TODO: FIX NAME UNICODE TRANSFORM
             dic['color'] = color
             docname = doc.GetDocumentName()
+            print(type(docname))
             filename, ext = os.path.splitext(docname)
         return attr_list
 
@@ -50,6 +51,10 @@ class Exporter:
         """
         write out json and fbx file to chosen path
         """
+        if len(self.lamps) == 0:
+            gui.MessageDialog("No lights selected")
+            return
+
         path = c4d.storage.SaveDialog(title="Select place to save files")
         if path == None:
             return
