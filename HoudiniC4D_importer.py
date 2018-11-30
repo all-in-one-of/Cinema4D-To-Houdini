@@ -2,6 +2,9 @@ import hou
 import json
 import os
 
+# TODO: MENU, WITH BUTTON TO SELECT ALL LIGHTS
+# TODO: MAKE BUTTON TO OPEN A NEWSCENE WITH ALL LIGHTS IN IT COPIED
+#
 
 def create_light(name):
     """ create lights in the scene"""
@@ -9,9 +12,16 @@ def create_light(name):
     # Get scene root node
     sceneroot = hou.node('/obj/scene_fbx/')
     # Create light
-    light = sceneroot.createNode('rslight', '{}'.format(name + '_H'))
-    light.setParms({'light_type': 3})
-    return light, sceneroot
+    try:
+        light = sceneroot.createNode('rslight', '{}'.format(name + '_H'))
+        light.setParms({'light_type': 3})
+        return light, sceneroot
+    except:
+        hou.ui.displayMessage('Could not find Redshift ')
+
+
+
+
 
 
 def filepath():
