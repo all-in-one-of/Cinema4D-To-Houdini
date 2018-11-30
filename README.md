@@ -17,6 +17,9 @@ Select the lights, run the script and select a location to export the .json and 
 Open Houdini, open the source editor and run HoudiniC4D_importer.py, select the .json and the lights are imported.
 
 
+![0ff36ec841eb3d64d4298753de060f3f](https://user-images.githubusercontent.com/44348300/47940627-8bdd0a00-deeb-11e8-89af-e0f9c20ff044.png)
+
+
 ### what does not work?
 
 Only works for physical lights (you should use them 99% of the time).
