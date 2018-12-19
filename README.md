@@ -8,7 +8,7 @@ It is handy to have exactly the same light-setup in both the software-packages.
 Otherwise the simulation's will not align  when brought together.
 ## How?
 
-First place the script int `\AppData\Roaming\MAXON\{cinemaversion}\library\scripts`
+First place the script in `\AppData\Roaming\MAXON\{cinemaversion}\library\scripts`
 Inside cinema4D, copy the lights you want to export into a new scene.
 Select the lights, run the script and select a location to export the .json and .fbx.
 
